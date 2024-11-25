@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de FTP</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>Calculadora</h1>
+  <p>Utiliza estas calculadoras para poder conocer tis zonas de entrenamiento!</p>
+  <div class="button-container">
+    <button onclick="window.location.href='FC-max.html'">Ciclismo por potencia</button>
+    <button onclick="window.location.href='Ciclismo-por-potencia.html'">Ciclismo por potencia</button>
+    <button onclick="window.location.href='Carrera-por-ritmo.html'">Carrera por ritmo</button>
+  </div>
+  <h2>¿Cómo</h2>
+  <p>Introduce la potencia media obtenida en tu prueba de 20 minutos:</p>
+  <input type="time" id="power" placeholder="Minutos">
+  <button onclick="calculateCPR()">Calcular</button>
+  <p id="result"></p>
+  
+  <table id="ftpTable">
+    <thead>
+      <tr>
+        <th>Zona</th>
+        <th>Sensaciones</th>
+        <th>Potencia (vatios)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Z1</td>
+        <td>Ritmo de recuperación</td>
+        <td id="z1">-</td>
+      </tr>
+      <tr>
+        <td>Z2</td>
+        <td>Ritmo medio</td>
+        <td id="z2">-</td>
+      </tr>
+      <tr>
+        <td>Z3</td>
+        <td>Ritmo alto</td>
+        <td id="z3">-</td>
+      </tr>
+      <tr>
+        <td>Z4</td>
+        <td>Ritmo muy alto</td>
+        <td id="z4">-</td>
+      </tr>
+      <tr>
+        <td>Z5</td>
+        <td>Ritmo máximo</td>
+        <td id="z5">-</td>
+      </tr>
+      <tr>
+        <td>Z6</td>
+        <td>Velocidad/Potencia submáxima</td>
+        <td id="z6">-</td>
+      </tr>
+      <tr>
+        <td>Z7</td>
+        <td>Velocidad/Potencia máxima</td>
+        <td id="z7">-</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de FTP</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <p>Utiliza estas calculadoras para poder conocer tus zonas de entrenamiento!</p>
+  <div class="button-container">
+    <button onclick="window.location.href='FC-max.html'">FCMax</button>
+    <button onclick="window.location.href='Ciclismo-por-potencia.html'">Ciclismo por potencia</button>
+    <button onclick="window.location.href='Carrera-por-ritmo.html'">Carrera por ritmo</button>
+  </div>
+  <h2>¿Cómo obtengo mi FCmáx?</h2>
+  <p>Para calcular tu frecuencia cardíaca máxima (FCmáx), realiza una prueba de esfuerzo como subir escaleras rápidamente durante dos minutos, asegurándote de mantener un ritmo intenso. Al llegar al final, mide tu frecuencia cardíaca; ese valor será tu FCmáx.
+    Si no estás seguro de tu FCmáx, puedes usar una estimación basada en tu edad. Solo introduce tu edad en la calculadora y determinaré un valor aproximado por ti.</p>
+  <input type="number" id="age" placeholder="edad" min="0">
+  <input type="number" id="power" placeholder="Potencia media (bpm)" min="0">
+  <button onclick="calculateFTP()">Calcular</button>
+  <p id="result"></p>
+  
+  <table id="ftpTable">
+    <thead>
+      <tr>
+        <th>Zona</th>
+        <th>Sensaciones</th>
+        <th>bpm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Z1</td>
+        <td>Ritmo de recuperación</td>
+        <td id="z1">-</td>
+      </tr>
+      <tr>
+        <td>Z2</td>
+        <td>Ritmo medio</td>
+        <td id="z2">-</td>
+      </tr>
+      <tr>
+        <td>Z3</td>
+        <td>Ritmo alto</td>
+        <td id="z3">-</td>
+      </tr>
+      <tr>
+        <td>Z4</td>
+        <td>Ritmo muy alto</td>
+        <td id="z4">-</td>
+      </tr>
+      <tr>
+        <td>Z5</td>
+        <td>Ritmo máximo</td>
+        <td id="z5">-</td>
+      </tr>
+      <tr>
+        <td>Z6</td>
+        <td>Velocidad/Potencia submáxima</td>
+        <td id="z6">-</td>
+      </tr>
+      <tr>
+        <td>Z7</td>
+        <td>Velocidad/Potencia máxima</td>
+        <td id="z7">-</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
