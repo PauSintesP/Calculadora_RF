@@ -11,6 +11,17 @@ table {
     border-collapse: collapse;
     font-family:"DM Sans", sans-serif;
 }
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 5px;
+}
+p {
+   font-size: 18px;
+   color: #5a5a5a;
+   margin-bottom: 10px;
+}
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
@@ -69,13 +80,18 @@ tbody tr:nth-child(odd) {
       margin-top: 10px;
     }
     button {
-      margin-top: 10px;
-      padding: 10px;
-      background-color: #ecc31f;
-      border-radius: 5px;
+      background-color: #f6c112;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #b99918;
+      background-color: #e5ae00;
 
     }
     tbody tr:nth-child(odd) {
