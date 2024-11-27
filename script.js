@@ -1,33 +1,71 @@
 function calculateFTP() {
-  // Obtén los valores introducidos por el usuario
-  const power = document.getElementById("power").value;
-  const age = document.getElementById("age").value;
+  const power = parseFloat(document.getElementById("power").value);
 
-  // Asegúrate de que el usuario introdujo valores válidos
-  if (!power || power <= 0 || !age || age <= 0) {
-    document.getElementById("result").textContent = "Por favor, introduce valores válidos para la potencia y la edad.";
-    document.getElementById("result").style.color = "red";
+  if (isNaN(power) || power <= 0) {
+    displayResult("Per favor, introdueix un valor vàlid per a la potència.", "red");
     return;
-  } else {
-    // Si los valores son válidos, elimina el mensaje de error
-    document.getElementById("result").textContent = "Vamos a ver tus zonas de potencia!";
-    document.getElementById("result").style.color = "green";
   }
 
-  // Calcula edefpower * 0.95).toFixed(1);
+  // FTP basat en el 95% de la potència mitjana d'un esforç màxim de 20 minuts
+  const ftp = parseFloat((power * 0.95).toFixed(1));
+  displayResult(`El teu FTP és ${ftp} W. Calculant zones...`, "green");
 
-  // Calcula las zonas de potencia basadas en el FTP y la edad
-  const zones = {
-    z1: `< ${(ftp * (0.55 - (age / 100))).toFixed(1)}`,
-    z2: `${(ftp * (0.56 - (age / 100))).toFixed()} - ${(ftp * (0.75 - (age / 100))).toFixed(1)}`,
-    z3: `${(ftp * (0.76 - (age / 100))).toFixed(1)} - ${(ftp * (0.90 - (age / 100))).toFixed(1)}`,
-    z4: `${(ftp * (0.91 - (age / 100))).toFixed(1)} - ${(ftp * (1.05 - (age / 100))).toFixed(1)}`,
-    z5: `${(ftp * (1.06 - (age / 100))).toFixed(1)} - ${(ftp * (1.10 - (age / 100))).toFixed(1)}`,
-    z6: `${(ftp * (1.11 - (age / 100))).toFixed(1)} - ${(ftp * (1.50 - (age / 100))).toFixed(1)}`,
-    z7: `> ${(ftp * (1.50 - (age / 100))).toFixed(1)}`,
+  const zones = calculateZones(ftp, 0); // Passar 0 com a modificador per defecte
+  updateZones(zones);
+}
+
+function calculateCPR() {
+  const time = document.getElementById("time").value; // Tiempo en formato HH:MM
+  const pace = parseFloat(document.getElementById("pace").value); // Ritmo promedio en segundos
+
+  if (!time || isNaN(pace) || pace <= 0) {
+    displayResult("Por favor, introduce valores válidos para el tiempo y el ritmo.", "red");
+    return;
+  }
+
+  const totalMinutes = convertTimeToMinutes(time); // Convertir tiempo a minutos
+  const cpr = (totalMinutes * pace).toFixed(2); // Ejemplo de cálculo, ajusta según lógica deseada
+  displayResult(`Tu CPR calculado es ${cpr}. Calculando zonas...`, "green");
+
+  const zones = calculateZones(pace, totalMinutes);
+  updateZones(zones);
+}
+
+function calculateFCMax() {
+  const age = parseInt(document.getElementById("age").value, 10);
+  const resultElement = document.getElementById("fcMaxResult");
+
+  if (isNaN(age) || age <= 0) {
+    resultElement.textContent = "Por favor, introduce una edad válida.";
+    resultElement.style.color = "red";
+    return;
+  }
+
+  const fcMax = 220 - age; // Fórmula estándar: 220 - edad
+  resultElement.textContent = `Tu FCmáx estimada es ${fcMax} bpm.`;
+  resultElement.style.color = "green";
+
+  // Actualizar zonas en la tabla
+  document.getElementById("z1").textContent = `< ${Math.round(fcMax * 0.55)}`;
+  document.getElementById("z2").textContent = `${Math.round(fcMax * 0.56)} - ${Math.round(fcMax * 0.75)}`;
+  document.getElementById("z3").textContent = `${Math.round(fcMax * 0.76)} - ${Math.round(fcMax * 0.90)}`;
+  document.getElementById("z4").textContent = `${Math.round(fcMax * 0.91)} - ${Math.round(fcMax * 1.05)}`;
+  document.getElementById("z5").textContent = `> ${Math.round(fcMax * 1.06)}`;
+}
+
+function calculateZones(value, modifier) {
+  return {
+    z1: `< ${(value * (0.55 - modifier / 100)).toFixed(1)}`,
+    z2: `${(value * (0.56 - modifier / 100)).toFixed(1)} - ${(value * (0.75 - modifier / 100)).toFixed(1)}`,
+    z3: `${(value * (0.76 - modifier / 100)).toFixed(1)} - ${(value * (0.90 - modifier / 100)).toFixed(1)}`,
+    z4: `${(value * (0.91 - modifier / 100)).toFixed(1)} - ${(value * (1.05 - modifier / 100)).toFixed(1)}`,
+    z5: `${(value * (1.06 - modifier / 100)).toFixed(1)} - ${(value * (1.10 - modifier / 100)).toFixed(1)}`,
+    z6: `${(value * (1.11 - modifier / 100)).toFixed(1)} - ${(value * (1.50 - modifier / 100)).toFixed(1)}`,
+    z7: `> ${(value * (1.50 - modifier / 100)).toFixed(1)}`,
   };
+}
 
-  // Actualiza las celdas de la tabla con los valores de las zonas
+function updateZones(zones) {
   document.getElementById("z1").textContent = zones.z1;
   document.getElementById("z2").textContent = zones.z2;
   document.getElementById("z3").textContent = zones.z3;
@@ -36,25 +74,15 @@ function calculateFTP() {
   document.getElementById("z6").textContent = zones.z6;
   document.getElementById("z7").textContent = zones.z7;
 }
-function calculateCPR() {
-  const time = document.getElementById("time").value;
-  // Asegúrate de que el usuario introdujo un valor válido para el tiempo
-  if (!time || time <= 0) {
-    document.getElementById("result").textContent = "Por favor, introduce un valor válido para el tiempo.";
-    document.getElementById("result").style.color = "red";
-    return;
-  } else {
-    // Si el valor es válido, elimina el mensaje de error
-    document.getElementById("result").textContent = "Vamos a calcular tu frecuencia cardíaca!";
-    document.getElementById("result").style.color = "green";
-  }
-const zones = {
-    z1: `< ${(ftp * (0.55 - (age / 100))).toFixed(1)}`,
-    z2: `${(ftp * (0.56 - (age / 100))).toFixed()} - ${(ftp * (0.75 - (age / 100))).toFixed(1)}`,
-    z3: `${(ftp * (0.76 - (age / 100))).toFixed(1)} - ${(ftp * (0.90 - (age / 100))).toFixed(1)}`,
-    z4: `${(ftp * (0.91 - (age / 100))).toFixed(1)} - ${(ftp * (1.05 - (age / 100))).toFixed(1)}`,
-    z5: `${(ftp * (1.06 - (age / 100))).toFixed(1)} - ${(ftp * (1.10 - (age / 100))).toFixed(1)}`,
-    z6: `${(ftp * (1.11 - (age / 100))).toFixed(1)} - ${(ftp * (1.50 - (age / 100))).toFixed(1)}`,
-    z7: `> ${(ftp * (1.50 - (age / 100))).toFixed(1)}`,
-  };
+
+// Funció per mostrar el resultat
+function displayResult(message, color) {
+  const resultElement = document.getElementById("result");
+  resultElement.innerText = message;
+  resultElement.style.color = color;
+}
+
+function convertTimeToMinutes(time) {
+  const [hours, minutes] = time.split(":").map((t) => parseInt(t, 10));
+  return hours * 60 + minutes; // Convertir a minutos totales
 }

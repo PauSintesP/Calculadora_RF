@@ -16,8 +16,9 @@
     <button onclick="window.location.href='Carrera-por-ritmo.html'">Carrera por ritmo</button>
   </div>
   <h2>¿Cómo</h2>
-  <p>Introduce la potencia media obtenida en tu prueba de 20 minutos:</p>
-  <input type="time" id="power" placeholder="Minutos">
+  <p>Introduce tu tiempo (formato HH:MM) y ritmo promedio:</p>
+  <input type="time" id="time" placeholder="Tiempo (HH:MM)">
+  <input type="number" id="pace" placeholder="Ritmo promedio (segundos por km)" min="0">
   <button onclick="calculateCPR()">Calcular</button>
   <p id="result"></p>
   

@@ -15,11 +15,10 @@
     <button onclick="window.location.href='Ciclismo-por-potencia.html'">Ciclismo por potencia</button>
     <button onclick="window.location.href='Carrera-por-ritmo.html'">Carrera por ritmo</button>
   </div>
-  <p>Introduce la potencia media obtenida en tu prueba de 20 minutos:</p>
-  <input type="number" id="power" placeholder="Potencia media (vatios)">
+  <p>FTP o Umbral de Potencia Funcional son los vatios que eres capaz de sostener durante una hora de actividad.Para determinar tu FTP ve a un puerto de pendiente moderada (máximo 5%) y realiza un esfuerzo máximo contrarreloj de 20 minutos. Multiplica la media de potencia del intervalo de 20 minutos por 0.95 y ese es tu FTP.</p>
+  <input type="number" id="power" placeholder="FTP(vatios)" min="0">
   <button onclick="calculateFTP()">Calcular</button>
   <p id="result"></p>
-  
   <table id="ftpTable">
     <thead>
       <tr>
