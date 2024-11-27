@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cálculo de FTP</title>
+  <title>Calculadora de Ritmo de Carrera</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
 </head>
 <body>
-  <h1>Calculadora</h1>
-  <p>Utiliza estas calculadoras para poder conocer tis zonas de entrenamiento!</p>
+  <h1>Calculadora de Ritmo de Carrera</h1>
+  <p>Utiliza estas calculadoras para poder conocer tus zonas de entrenamiento!</p>
   <div class="button-container">
-    <button onclick="window.location.href='FC-max.html'">Ciclismo por potencia</button>
+    <button onclick="window.location.href='FC-max.html'">FCMax</button>
     <button onclick="window.location.href='Ciclismo-por-potencia.html'">Ciclismo por potencia</button>
     <button onclick="window.location.href='Carrera-por-ritmo.html'">Carrera por ritmo</button>
   </div>
-  <h2>¿Cómo</h2>
+  <h2>¿Cómo calcular tu ritmo de carrera?</h2>
   <p>Introduce tu tiempo (formato HH:MM) y ritmo promedio:</p>
   <input type="time" id="time" placeholder="Tiempo (HH:MM)">
   <input type="number" id="pace" placeholder="Ritmo promedio (segundos por km)" min="0">
@@ -27,7 +27,7 @@
       <tr>
         <th>Zona</th>
         <th>Sensaciones</th>
-        <th>Potencia (vatios)</th>
+        <th>Ritmo (segundos por km)</th>
       </tr>
     </thead>
     <tbody>
@@ -38,32 +38,32 @@
       </tr>
       <tr>
         <td>Z2</td>
-        <td>Ritmo medio</td>
+        <td>Resistencia aeróbica</td>
         <td id="z2">-</td>
       </tr>
       <tr>
         <td>Z3</td>
-        <td>Ritmo alto</td>
+        <td>Tempo</td>
         <td id="z3">-</td>
       </tr>
       <tr>
         <td>Z4</td>
-        <td>Ritmo muy alto</td>
+        <td>Umbral</td>
         <td id="z4">-</td>
       </tr>
       <tr>
         <td>Z5</td>
-        <td>Ritmo máximo</td>
+        <td>VO2 Máx</td>
         <td id="z5">-</td>
       </tr>
       <tr>
         <td>Z6</td>
-        <td>Velocidad/Potencia submáxima</td>
+        <td>Capacidad anaeróbica</td>
         <td id="z6">-</td>
       </tr>
       <tr>
         <td>Z7</td>
-        <td>Velocidad/Potencia máxima</td>
+        <td>Potencia neuromuscular</td>
         <td id="z7">-</td>
       </tr>
     </tbody>
