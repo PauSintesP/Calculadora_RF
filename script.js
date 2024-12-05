@@ -1,39 +1,6 @@
-function calculateFTP() {
-  const power = parseFloat(document.getElementById("power").value);
-
-  if (isNaN(power) || power <= 0) {
-    displayResult("Per favor, introdueix un valor vàlid per a la potència.", "red");
-    return;
-  }
-
-  // FTP basat en el 95% de la potència mitjana d'un esforç màxim de 20 minuts
-  const ftp = parseFloat((power * 0.95).toFixed(1));
-  displayResult(`El teu FTP és ${ftp} W. Calculant zones...`, "green");
-
-  const zones = calculateZones(ftp, 0); // Passar 0 com a modificador per defecte
-  updateZones(zones);
-}
-
-function calculateCPR() {
-  const time = document.getElementById("time").value; // Tiempo en formato HH:MM
-  const pace = parseFloat(document.getElementById("pace").value); // Ritmo promedio en segundos
-
-  if (!time || isNaN(pace) || pace <= 0) {
-    displayResult("Por favor, introduce valores válidos para el tiempo y el ritmo.", "red");
-    return;
-  }
-
-  const totalMinutes = convertTimeToMinutes(time); // Convertir tiempo a minutos
-  const cpr = (totalMinutes * pace).toFixed(2); // Ejemplo de cálculo, ajusta según lógica deseada
-  displayResult(`Tu CPR calculado es ${cpr}. Calculando zonas...`, "green");
-
-  const zones = calculateZones(pace, totalMinutes);
-  updateZones(zones);
-}
-
 function calculateFCMax() {
   const age = parseInt(document.getElementById("age").value, 10);
-  const resultElement = document.getElementById("fcMaxResult");
+  const resultElement = document.getElementById("result");
 
   if (isNaN(age) || age <= 0) {
     resultElement.textContent = "Por favor, introduce una edad válida.";
@@ -41,27 +8,27 @@ function calculateFCMax() {
     return;
   }
 
-  const fcMax = 220 - age; // Fórmula estándar: 220 - edad
+  // Calcular FCmáx usando la fórmula estándar
+  const fcMax = 220 - age;
   resultElement.textContent = `Tu FCmáx estimada es ${fcMax} bpm.`;
   resultElement.style.color = "green";
 
-  // Actualizar zonas en la tabla
-  document.getElementById("z1").textContent = `< ${Math.round(fcMax * 0.55)}`;
-  document.getElementById("z2").textContent = `${Math.round(fcMax * 0.56)} - ${Math.round(fcMax * 0.75)}`;
-  document.getElementById("z3").textContent = `${Math.round(fcMax * 0.76)} - ${Math.round(fcMax * 0.90)}`;
-  document.getElementById("z4").textContent = `${Math.round(fcMax * 0.91)} - ${Math.round(fcMax * 1.05)}`;
-  document.getElementById("z5").textContent = `> ${Math.round(fcMax * 1.06)}`;
+  // Calcular las zonas de rendimiento
+  const zones = calculateZones(fcMax);
+
+  // Actualizar la tabla con los valores calculados
+  updateZones(zones);
 }
 
-function calculateZones(value, modifier) {
+function calculateZones(fcMax) {
   return {
-    z1: `< ${(value * (0.55 - modifier / 100)).toFixed(1)}`,
-    z2: `${(value * (0.56 - modifier / 100)).toFixed(1)} - ${(value * (0.75 - modifier / 100)).toFixed(1)}`,
-    z3: `${(value * (0.76 - modifier / 100)).toFixed(1)} - ${(value * (0.90 - modifier / 100)).toFixed(1)}`,
-    z4: `${(value * (0.91 - modifier / 100)).toFixed(1)} - ${(value * (1.05 - modifier / 100)).toFixed(1)}`,
-    z5: `${(value * (1.06 - modifier / 100)).toFixed(1)} - ${(value * (1.10 - modifier / 100)).toFixed(1)}`,
-    z6: `${(value * (1.11 - modifier / 100)).toFixed(1)} - ${(value * (1.50 - modifier / 100)).toFixed(1)}`,
-    z7: `> ${(value * (1.50 - modifier / 100)).toFixed(1)}`,
+    z1: `< ${Math.round(fcMax * 0.55)}`,
+    z2: `${Math.round(fcMax * 0.56)} - ${Math.round(fcMax * 0.75)}`,
+    z3: `${Math.round(fcMax * 0.76)} - ${Math.round(fcMax * 0.90)}`,
+    z4: `${Math.round(fcMax * 0.91)} - ${Math.round(fcMax * 1.05)}`,
+    z5: `> ${Math.round(fcMax * 1.06)}`,
+    z6: `${Math.round(fcMax * 1.11)} - ${Math.round(fcMax * 1.50)}`,
+    z7: `> ${Math.round(fcMax * 1.50)}`,
   };
 }
 
@@ -74,15 +41,32 @@ function updateZones(zones) {
   document.getElementById("z6").textContent = zones.z6;
   document.getElementById("z7").textContent = zones.z7;
 }
+function calculateFTP() {
+  // Obtener el valor del FTP ingresado por el usuario
+  const ftpInput = document.getElementById("power");
+  const ftpValue = parseFloat(ftpInput.value);
 
-// Funció per mostrar el resultat
-function displayResult(message, color) {
-  const resultElement = document.getElementById("result");
-  resultElement.innerText = message;
-  resultElement.style.color = color;
+  if (isNaN(ftpValue) || ftpValue <= 0) {
+    alert("Por favor, ingresa un valor válido de FTP (vatios).");
+    return;
+  }
+
+  // Calcular valores para cada zona
+  const zones = {
+    z1: `< ${Math.round(ftpValue * 0.55)}`, // Menor que 55%
+    z2: `${Math.round(ftpValue * 0.56)} - ${Math.round(ftpValue * 0.75)}`, // 56-75%
+    z3: `${Math.round(ftpValue * 0.76)} - ${Math.round(ftpValue * 0.90)}`, // 76-90%
+    z4: `${Math.round(ftpValue * 0.91)} - ${Math.round(ftpValue * 1.05)}`, // 91-105%
+    z5: `${Math.round(ftpValue * 1.06)} - ${Math.round(ftpValue * 1.20)}`, // 106-120%
+    z6: `${Math.round(ftpValue * 1.21)} - ${Math.round(ftpValue * 1.50)}`, // 121-150%
+    z7: `> ${Math.round(ftpValue * 1.50)}` // Mayor que 150%
+  };
+
+  // Actualizar la tabla usando la función updateZones
+  updateZones(zones);
+
+  // Mostrar un mensaje de resultado
+  const result = document.getElementById("result");
+  result.textContent = `Tu FTP en ${ftpValue} vatios: `;
 }
 
-function convertTimeToMinutes(time) {
-  const [hours, minutes] = time.split(":").map((t) => parseInt(t, 10));
-  return hours * 60 + minutes; // Convertir a minutos totales
-}

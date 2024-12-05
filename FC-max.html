@@ -18,15 +18,16 @@
   <h2>¿Cómo obtengo mi FCmáx?</h2>
   <p>Para calcular tu frecuencia cardíaca máxima (FCmáx), realiza una prueba de esfuerzo como subir escaleras rápidamente durante dos minutos, asegurándote de mantener un ritmo intenso. Al llegar al final, mide tu frecuencia cardíaca; ese valor será tu FCmáx.
     Si no estás seguro de tu FCmáx, puedes usar una estimación basada en tu edad. Solo introduce tu edad en la calculadora y determinaré un valor aproximado por ti.</p>
-  <input type="number" id="age" placeholder="edad" min="0">
-  <input type="number" id="power" placeholder="Potencia media (bpm)" min="0">
-  <button onclick="calculateFTP()">Calcular</button>
-  <p id="result"></p>
+    <input type="number" id="age" placeholder="Edad" min="0">
+    <button onclick="calculateFCMax()">Calcular</button>
+    <p id="result"></p>    
   <table id="ftpTable">
     <thead>
       <tr>
         <th>Zona</th>
         <th>Sensaciones</th>
+        <th>BPM(%FCM)</th></td>
+        <th>Potencia (%FTP)</th>
         <th>bpm</th>
       </tr>
     </thead>
@@ -34,36 +35,50 @@
       <tr>
         <td>Z1</td>
         <td>Ritmo de recuperación</td>
+        <td>50-60%</td>
+        <td>Menos del 55%</td>
         <td id="z1">-</td>
       </tr>
       <tr>
         <td>Z2</td>
         <td>Ritmo medio</td>
+        <td >60-70%	56-75%</td>
+        <td>56-75%</td>
         <td id="z2">-</td>
       </tr>
       <tr>
         <td>Z3</td>
         <td>Ritmo alto</td>
+        <td>70-80%</td>
+        <td>76-90%</td>
         <td id="z3">-</td>
       </tr>
       <tr>
         <td>Z4</td>
         <td>Ritmo muy alto</td>
+        <td>80-90%</td>
+        <td>91-105%</td>
         <td id="z4">-</td>
       </tr>
       <tr>
         <td>Z5</td>
         <td>Ritmo máximo</td>
+        <td>90-100%</td>
+        <td>106-120%</td>
         <td id="z5">-</td>
       </tr>
       <tr>
         <td>Z6</td>
         <td>Velocidad/Potencia submáxima</td>
+        <td>-</td>
+        <td>121-150%</td>
         <td id="z6">-</td>
       </tr>
       <tr>
         <td>Z7</td>
         <td>Velocidad/Potencia máxima</td>
+        <td>-</td>
+        <td>Más del 150%</td>
         <td id="z7">-</td>
       </tr>
     </tbody>

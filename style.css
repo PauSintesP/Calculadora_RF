@@ -3,7 +3,7 @@
   margin: 10px;
 }
 body {
-    margin: 20;
+    margin: 20px;
     font-family: "DM Sans", sans-serif;
     background-color: #f9f9f9;
     color: #333;
@@ -69,6 +69,27 @@ th {
 
 tbody tr:nth-child(odd) {
     background-color: #cdcdcd;
+}
+
+/* Hacer que el texto en la última columna sea responsive */
+td span.range {
+    display: inline-block; /* Asegura que sea tratada como una unidad de bloque */
+    text-align: center;
+    word-break: break-word; /* Permite partir palabras o guiones */
+    white-space: pre-wrap; /* Asegura que respete los saltos y espacios */
+}
+
+td span.range span {
+    display: block; /* Cada valor queda en su propia línea */
+}
+/* Mantén el resto de tu CSS existente y añade esto */
+td.bpm {
+    text-align: center; /* Centra el texto */
+}
+
+td.bpm span {
+    display: block; /* Cada parte del valor se muestra en su propia línea */
+    line-height: 1.2; /* Espaciado entre líneas */
 }
 
 /* Media query para dispositivos móviles */
