@@ -5,7 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cálculo de FTP</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <script>
+    function calculateFTP() {
+  // Obtener el valor del FTP ingresado por el usuario
+  const ftpInput = document.getElementById("power");
+  const ftpValue = parseFloat(ftpInput.value);
+
+  if (isNaN(ftpValue) || ftpValue <= 0) {
+    alert("Por favor, ingresa un valor válido de FTP (vatios).");
+    return;
+  }
+  const zones = {
+    z1: `< ${Math.round(ftpValue * 0.55)}`, // Menor que 55%
+    z2: `${Math.round(ftpValue * 0.56)} - ${Math.round(ftpValue * 0.75)}`, // 56-75%
+    z3: `${Math.round(ftpValue * 0.76)} - ${Math.round(ftpValue * 0.90)}`, // 76-90%
+    z4: `${Math.round(ftpValue * 0.91)} - ${Math.round(ftpValue * 1.05)}`, // 91-105%
+    z5: `${Math.round(ftpValue * 1.06)} - ${Math.round(ftpValue * 1.20)}`, // 106-120%
+    z6: `${Math.round(ftpValue * 1.21)} - ${Math.round(ftpValue * 1.50)}`, // 121-150%
+    z7: `> ${Math.round(ftpValue * 1.50)}` // Mayor que 150%
+  };
+  updateZones(zones);
+  const result = document.getElementById("result");
+  result.textContent = `Tu FTP en ${ftpValue} vatios: `;
+  function updateZones(zones) {
+  document.getElementById("z1").textContent = zones.z1;
+  document.getElementById("z2").textContent = zones.z2;
+  document.getElementById("z3").textContent = zones.z3;
+  document.getElementById("z4").textContent = zones.z4;
+  document.getElementById("z5").textContent = zones.z5;
+  document.getElementById("z6").textContent = zones.z6;
+  document.getElementById("z7").textContent = zones.z7;
+}
+    }
+  </script>
 </head>
 <body>
   <h1>Calculadora de Umbral de Potencia Funcional (FTP)</h1>

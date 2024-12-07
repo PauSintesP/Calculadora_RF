@@ -5,7 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cálculo de FCmáx</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <script>
+    function calculateFCMax() {
+    const age = parseInt(document.getElementById("age").value, 10);
+    const resultElement = document.getElementById("result");
+  
+    if (isNaN(age) || age <= 0) {
+      resultElement.textContent = "Por favor, introduce una edad válida.";
+      resultElement.style.color = "red";
+      return;
+    }
+  
+    // Calcular FCmáx usando la fórmula estándar
+    const fcMax = 220 - age;
+    resultElement.textContent = `Tu FCmáx estimada es ${fcMax} bpm.`;
+    resultElement.style.color = "green";
+  
+    // Calcular las zonas de rendimiento
+    const zones = calculateZones(fcMax);
+  
+    // Actualizar la tabla con los valores calculados
+    updateZones(zones);
+  }
+  
+  function calculateZones(fcMax) {
+    return {
+      z1: `< ${Math.round(fcMax * 0.55)}`,
+      z2: `${Math.round(fcMax * 0.56)} - ${Math.round(fcMax * 0.75)}`,
+      z3: `${Math.round(fcMax * 0.76)} - ${Math.round(fcMax * 0.90)}`,
+      z4: `${Math.round(fcMax * 0.91)} - ${Math.round(fcMax * 1.05)}`,
+      z5: `> ${Math.round(fcMax * 1.06)}`,
+      z6: `${Math.round(fcMax * 1.11)} - ${Math.round(fcMax * 1.50)}`,
+      z7: `> ${Math.round(fcMax * 1.50)}`,
+    };
+  }
+  
+  function updateZones(zones) {
+    document.getElementById("z1").textContent = zones.z1;
+    document.getElementById("z2").textContent = zones.z2;
+    document.getElementById("z3").textContent = zones.z3;
+    document.getElementById("z4").textContent = zones.z4;
+    document.getElementById("z5").textContent = zones.z5;
+    document.getElementById("z6").textContent = zones.z6;
+    document.getElementById("z7").textContent = zones.z7;
+  }
+</script>
 </head>
 <body>
   <h1>Calculadora de Frecuencia Cardíaca Máxima (FCmáx)</h1>
