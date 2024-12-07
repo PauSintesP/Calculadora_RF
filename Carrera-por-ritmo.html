@@ -5,7 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Ritmo de Carrera</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <script>
+    function calculateCPR() {
+      var timeInput = document.getElementById("time");
+      var paceInput = document.getElementById("pace");
+      var result = document.getElementById("result");
+  
+      var time = timeInput.value;
+      var pace = paceInput.value;
+  
+      // Validar que se hayan ingresado valores válidos
+      if (time === "" || pace === "") {
+        result.innerHTML = "Por favor ingresa un tiempo y un ritmo válido.";
+        return;
+      }
+  
+      // Convertir el tiempo a minutos
+      var timeArray = time.split(":");
+      var hours = parseInt(timeArray[0]);
+      var minutes = parseInt(timeArray[1]);
+      var totalTime = hours * 60 + minutes;
+  
+      // Calcular el ritmo en minutos por km
+      var paceMinutes = Math.floor(totalTime / pace);
+      var paceSeconds = Math.round((totalTime / pace - paceMinutes) * 60);
+  
+      // Mostrar el resultado
+      result.innerHTML = "Tu ritmo de carrera es: " + paceMinutes + " minutos y " + paceSeconds + " segundos por km.";
+  
+      // Calcular los ritmos en cada zona
+      var z1 = Math.round(pace * 0.6);
+      var z2 = Math.round(pace * 0.7);
+      var z3 = Math.round(pace * 0.8);
+      var z4 = Math.round(pace * 0.9);
+      var z5 = Math.round(pace * 1.0);
+      var z6 = Math.round(pace * 1.1);
+      var z7 = Math.round(pace * 1.2);
+  
+      // Mostrar los ritmos en cada zona
+      document.getElementById("z1").innerHTML = z1 + " segundos por km";
+      document.getElementById("z2").innerHTML = z2 + " segundos por km";
+      document.getElementById("z3").innerHTML = z3 + " segundos por km";
+      document.getElementById("z4").innerHTML = z4 + " segundos por km";
+      document.getElementById("z5").innerHTML = z5 + " segundos por km";
+      document.getElementById("z6").innerHTML = z6 + " segundos por km";
+      document.getElementById("z7").innerHTML = z7 + " segundos por km";
+    }
+  </script>
 </head>
 <body>
   <h1>Calculadora de Ritmo de Carrera</h1>
